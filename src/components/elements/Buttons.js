@@ -1,37 +1,25 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
+import './Buttons.css';
 import {Button, Segment} from "semantic-ui-react";
 
 class Buttons extends Component {
 
-  state = {
-    currentButton: 1
-  };
-
-  handleClick = (category,currentButton) => {
-    currentButton !== this.state.currentButton && this.setState({currentButton});
-    this.props.setCategory(category);
+  handleClick = () => {
+    localStorage.setItem('HomeState','');
   };
 
   render() {
-    const {currentButton} = this.state;
 
     return (
-      <Segment>
-        <Button.Group className="category-buttons">
-          <Button
-            size="large"
-            color="green"
-            disabled={currentButton === 1}
-            onClick={() => this.handleClick('movie',1)}
-          >Movies
-          </Button>
-          <Button
-            size="large"
-            color="green"
-            disabled={currentButton === 2}
-            onClick={() => this.handleClick('tv',2)}
-          >TV Shows
-          </Button>
+      <Segment inverted>
+        <Button.Group style={{background: '#21ba45'}}>
+          <Link to="/" onClick={this.handleClick}>
+            <Button color="green">Movie</Button>
+          </Link>
+          <Link to="/shows" onClick={this.handleClick}>
+            <Button color="green" >TV Shows</Button>
+          </Link>
         </Button.Group>
       </Segment>
     );

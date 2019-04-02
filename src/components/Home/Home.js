@@ -18,7 +18,7 @@ class Home extends Component {
     currentPage: 0,
     totalPages: 0,
     searchTerm: '',
-    category: ''
+    category: this.props.category
   };
 
   componentDidMount() {
@@ -26,25 +26,7 @@ class Home extends Component {
       const state = JSON.parse(localStorage.getItem('HomeState'));
       this.setState({...state});
     }else {
-      if(this.state.category === ''){
-        this.setState({category: this.props.category})
-      }
       this.setState({loading: true});
-      const endpoint = `${API_URL}${this.state.category}/popular?api_key=${API_KEY}&language=en-Us&page=1`;
-      this.fetchItems(endpoint);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.category !== this.props.category){
-      this.setState({
-        category: this.props.category,
-        movies: [],
-        heroImage: null,
-        currentPage: 0,
-        totalPages: 0,
-        searchTerm: ''
-      });
       const endpoint = `${API_URL}${this.state.category}/popular?api_key=${API_KEY}&language=en-Us&page=1`;
       this.fetchItems(endpoint);
     }
@@ -92,8 +74,7 @@ class Home extends Component {
   };
 
   render() {
-    const {heroImage, loading, searchTerm, movies, currentPage, totalPages} = this.state;
-    console.log(this.state.category);
+    const {heroImage, loading, searchTerm, movies, currentPage, totalPages, category} = this.state;
     return (
       <div className="rmdb-home">
 
@@ -105,7 +86,7 @@ class Home extends Component {
             text={heroImage.overview}
           />
           <SearchBar callback={this.searchItems}/>
-          <Buttons setCategory={this.props.setCategory}/>
+          <Buttons/>
 
         </div> }
         <div className="rmdb-home-grid">
@@ -121,7 +102,8 @@ class Home extends Component {
                   ? `${IMAGE_BASE_URL}${POSTER_SIZE}/${element.poster_path}`
                   : './images/no_image.jpg'}
                 movieId={element.id}
-                movieName={element.original_title}
+                movieName={category === 'movie' ? element.original_title : element.original_name}
+                category={category}
               />
             ))}
           </FourColGrid>

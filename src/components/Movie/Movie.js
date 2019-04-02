@@ -24,20 +24,6 @@ class Movie extends Component {
     this.fetchItems(endpoint);
   }
 
-  componentDidUpdate(prevProps) {
-    if(prevProps.category !== this.props.category){
-      this.setState({
-        movie: null,
-        actors: null,
-        directors: [],
-        loading: false,
-        category: this.props.category
-      });
-      const endpoint = `${API_URL}${this.state.category}/${this.props.match.params.movieId}?api_key=${API_KEY}&language=en-Us`;
-      this.fetchItems(endpoint);
-    }
-  }
-
   fetchItems = endpoint => {
     fetch(endpoint)
       .then(result => result.json())
@@ -64,13 +50,12 @@ class Movie extends Component {
   };
 
   render() {
-
-    const {loading, movie, directors, actors} = this.state;
+    const {loading, movie, directors, actors, category} = this.state;
     return (
       <div className="rmdb-movie">
         {movie &&
         <div>
-          <Navigation movie={this.props.location.movieName}/>
+          <Navigation movie={this.props.location.movieName} category={category}/>
           <MovieInfo movie={movie} directors={directors}/>
           <MovieInfoBar
             time={movie.runtime}
