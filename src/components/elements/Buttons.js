@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import './Buttons.css';
 import {Button, Segment} from "semantic-ui-react";
 
 class Buttons extends Component {
