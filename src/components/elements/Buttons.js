@@ -12,14 +12,16 @@ class Buttons extends Component {
 
     return (
       <Segment inverted>
-        <Button.Group style={{background: '#21ba45'}}>
-          <Link to="/" onClick={this.handleClick}>
-            <Button color="green">Movie</Button>
-          </Link>
-          <Link to="/shows" onClick={this.handleClick}>
-            <Button color="green" >TV Shows</Button>
-          </Link>
-        </Button.Group>
+        <div className="buttons-wrapper">
+          <Button.Group style={{background: '#21ba45'}}>
+            <Link to="/" onClick={this.handleClick}>
+              <Button color="green">Movie</Button>
+            </Link>
+            <Link to="/shows" onClick={this.handleClick}>
+              <Button color="green">TV Shows</Button>
+            </Link>
+          </Button.Group>
+        </div>
       </Segment>
     );
   }
