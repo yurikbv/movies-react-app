@@ -22,7 +22,9 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    if(localStorage.getItem('HomeState')){
+    if(localStorage.getItem('HomeState') &&
+      JSON.parse(localStorage.getItem('HomeState')).category === this.state.category
+    ){
       const state = JSON.parse(localStorage.getItem('HomeState'));
       this.setState({...state});
     }else {
@@ -56,21 +58,20 @@ class Home extends Component {
     this.fetchItems(endpoint);
   };
 
-  fetchItems = (endpoint) => {
-    fetch(endpoint)
-      .then(result => result.json())
-      .then(result => {
-        this.setState({
-          movies: [...this.state.movies, ...result.results],
-          heroImage: this.state.heroImage || result.results[0],
-          loading: false,
-          currentPage: result.page,
-          totalPages: result.total_pages
-        }, () => {
-          this.state.searchTerm === '' && localStorage.setItem('HomeState',JSON.stringify(this.state));
-        })
-      })
-      .catch(err => console.error(err))
+  fetchItems = async endpoint => {
+    const {movies, heroImage, searchTerm} = this.state;
+
+    const result = await (await fetch(endpoint)).json().catch(err => console.error(err));
+
+    this.setState({
+      movies: [...movies, ...result.results],
+      heroImage: heroImage || result.results[0],
+      loading: false,
+      currentPage: result.page,
+      totalPages: result.total_pages
+    }, () => {
+      searchTerm === '' && localStorage.setItem('HomeState',JSON.stringify(this.state));
+    })
   };
 
   render() {

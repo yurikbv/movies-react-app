@@ -1,9 +1,10 @@
 .rmdb-movieinfobar {
   width: 100%;
-  height: 105px;
+  /*height: 105px;*/
   background: #1c1c1c;
   position: relative;
-  padding: 25px 20px 0px 20px;
+  /*padding: 25px 20px 0px 20px;*/
+  padding: 10px;
   box-sizing: border-box;
   font-family: 'Abel', sans-serif;
   font-size: 22px;
@@ -14,13 +15,18 @@
   width: 100%;
   margin: 0 auto;
   color: #fff;
+  display: flex;
+  justify-content: space-around;
 }
 
 .rmdb-movieinfobar-content-col {
-  float: left;
-  width: 33.33%;
+  /*float: left;*/
+  /*width: 33.33%;*/
   box-sizing: border-box;
-  padding: 10px 20px 0 0;
+  /*padding: 10px 20px 0 0;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rmdb-movieinfobar-info {
@@ -37,4 +43,16 @@
 .fa-budget {
   float: left;
   margin-top: -3px;
+}
+
+@media all and (max-width: 760px){
+  .rmdb-movieinfobar {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 480px){
+  .rmdb-movieinfobar {
+    font-size: 12px;
+  }
 }
